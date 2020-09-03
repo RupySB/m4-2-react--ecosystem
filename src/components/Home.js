@@ -10,9 +10,15 @@ const Home = (props) => {
     <>
       <p>Fruit emporium sells the finest fruits from this world and beyond.</p>
       <p> Browse items:</p>
-      <ListingGrid itemList={fruits} />
+      <Grid style={{ margin: "50px 50px" }}>
+        <ListingGrid itemList={fruits} />
+      </Grid>
     </>
   );
 };
-
+const Grid = styled.div`
+  display: grid;
+  grid: repeat(3, auto) / repeat(11, auto);
+  gap: 2em;
+`;
 export default Home;

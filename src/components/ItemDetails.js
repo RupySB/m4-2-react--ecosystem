@@ -1,67 +1,68 @@
 import React from "react";
-import ListingGrid from "./ListingGrid";
-import { items } from "../data";
-import { sellers } from "../data";
+import { items, sellers } from "../data";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const SellerDetails = () => {
-  const { sellers } = useParams();
-  let seller = sellers.seller;
-  return (
-    <Vendors>
-      <span>Sold By</span>
-      <p>{seller.sellers}</p>
-    </Vendors>
-  );
-};
-
 const ItemDetails = () => {
-  const { itemId } = useParams();
+  const { itemId, sellerId } = useParams();
   let item = items[itemId];
+  let seller = sellers[item.sellerId];
+
   let fruitQuantity;
   if (item.quantity > 0) {
     fruitQuantity = "Buy Now!";
   } else {
     fruitQuantity = "No More in Stock";
   }
+
   return (
     <Main>
-      <img src={item.imageSrc} />
-      <p>{item.name}</p>
-      <p>{item.latinName}</p>
-      <p>{item.description}</p>
-      <p>{item.countryOfOrigin}</p>
-      <p>{item.sellerId}</p>
-      <p>{item.price}</p>
-      <button>{fruitQuantity}</button>
+      <FruitPhoto src={item.imageSrc} />
+      <Wrapper>
+        <FruitName>{item.name}</FruitName>
+        <FruitLatinName>{item.latinName}</FruitLatinName>
+        <Description>{item.description}</Description>
+        <Origin>{item.countryOfOrigin}</Origin>
+        <p>{seller.avatarSrc} </p>
+        <p>{seller.storeName}</p>
+        <Button>
+          $ {item.price}
+          {fruitQuantity}
+        </Button>
+      </Wrapper>
     </Main>
   );
 };
-const Vendors = styled.div`
-  display: flex;
-  font-weight: bold;
-  font-size: 20px;
+
+const FruitPhoto = styled.img`
+  display: inline-block;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px;
+  width: 300px;
+  height: 300px;
 `;
-const Main = styled.ol`
-  display: flex;
+
+const Main = styled.div`
+  display: inline-block;
   padding: 10px;
 `;
-
-const Photo = styled.img`
-  width: 15px;
-  height: 15px;
-  border-radius: 10px;
+const Wrapper = styled.div`
+  display: inline-block;
 `;
 
-const Name = styled.p`
+const Button = styled.button``;
+
+const FruitName = styled.p`
   font-family: Arial, Helvetica, sans-serif;
   font-size: 40px;
   font-weight: bold;
   display: flex;
+  margin-top: 0px;
+  margin-bottom: 0px;
 `;
 
-const LatinName = styled.p`
+const FruitLatinName = styled.p`
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-style: italic;
@@ -73,6 +74,12 @@ const Description = styled.p`
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   display: flex;
+`;
+
+const Origin = styled.p`
+  font-size: 15px;
+  font-style: italic;
+  opacity: 50%;
 `;
 
 export default ItemDetails;

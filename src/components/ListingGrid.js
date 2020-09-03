@@ -5,34 +5,33 @@ import { Link } from "react-router-dom";
 const ListingGrid = ({ itemList }) => {
   return (
     <section className="item-list">
-      <ol>
-        {itemList.map((item) => {
-          return (
-            <MainPage>
-              <FruitPhoto src={item.imageSrc} />
-              <FruitName>{item.name}</FruitName>
-              <FruitLatinName>{item.latinName}</FruitLatinName>
-              <FruitOrigin>{item.countryOfOrigin}</FruitOrigin>
-              <Link className="ItemDetails" to={"/items/" + item.id}>
-                Go to Item Page{" "}
-              </Link>
-            </MainPage>
-          );
-        })}
-      </ol>
+      {itemList.map((item) => {
+        return (
+          <MainPage>
+            <FruitPhoto src={item.imageSrc} />
+            <FruitName>{item.name}</FruitName>
+            <FruitLatinName>{item.latinName}</FruitLatinName>
+            <Link className="ItemDetails" to={"/items/" + item.id}>
+              Go to Item Page{" "}
+            </Link>
+          </MainPage>
+        );
+      })}
     </section>
   );
 };
 
-const MainPage = styled.ol`
-  display: block;
-  grid-template-columns: repeat(autofit, minmax(150px, 2fr));
+const MainPage = styled.div`
+  display: inline-block;
+  grid: repeat(3) / repeat(11);
+  gap: 5em;
+  padding: 20px;
 `;
 
 const FruitPhoto = styled.img`
-  display: block;
+  display: inline-block;
   border-radius: 5px;
-  border: solid;
+  border: none;
   box-shadow: 5px;
   width: 150px;
   height: 150px;
@@ -41,13 +40,12 @@ const FruitName = styled.h2`
   font-size: 20px;
   font-weight: bold;
   display: flex;
+  border-bottom: lightgrey solid;
 `;
 const FruitLatinName = styled.h3`
   font-size: 15px;
   font-style: italic;
-`;
-const FruitOrigin = styled.p`
-  font-size: 10px;
+  opacity: 50%;
 `;
 
 export default ListingGrid;
